@@ -17,10 +17,21 @@ export default function ProjectsSection() {
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [ratings, setRatings] = useState({});
   const [isVisible, setIsVisible] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("All");
+  const [showAllProjects, setShowAllProjects] = useState(false);
   const [visibleProjects, setVisibleProjects] = useState({
     featured: [],
     regular: [],
   });
+
+  const filterCategories = [
+    "All",
+    "Web Apps",
+    "Mobile Apps",
+    "UI/UX",
+    // "Graphics",
+    // "CMS",
+  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -53,7 +64,7 @@ export default function ProjectsSection() {
       });
 
       // Animate regular projects
-      [0, 1].forEach((index) => {
+      [0, 1, 2, 3].forEach((index) => {
         setTimeout(
           () => {
             setVisibleProjects((prev) => ({
@@ -83,6 +94,7 @@ export default function ProjectsSection() {
         "GoogleMaps API",
       ],
       label: "Featured Project",
+      category: "Mobile Apps",
       rating: 0,
     },
     {
@@ -94,6 +106,7 @@ export default function ProjectsSection() {
       stars: 289,
       technologies: ["React Native", "Supabase", "Paymongo API"],
       label: "Featured Project",
+      category: "Mobile Apps",
       rating: 0,
     },
     {
@@ -101,10 +114,11 @@ export default function ProjectsSection() {
       description:
         "UIC Clinlab Manager is a comprehensive web application built to support clinical laboratory workflows, enabling efficient patient data management alongside real-time inventory tracking for supplies and equipment.",
       link: "#",
-      images: ["./images/placeholder.jpg"],
+      images: ["./images/project-imgs/ClinlabUIC.jpg"],
       stars: 156,
       technologies: ["Laravel", "Livewire", "Schoolex API"],
       label: "Featured Project",
+      category: "Web Apps",
       rating: 0,
     },
   ];
@@ -118,6 +132,7 @@ export default function ProjectsSection() {
       images: ["./images/placeholder.jpg"],
       stars: 156,
       technologies: ["React", "Node.js", "MySQL"],
+      category: "Web Apps",
       rating: 0,
     },
     {
@@ -127,6 +142,29 @@ export default function ProjectsSection() {
       images: ["./images/placeholder.jpg"],
       stars: 92,
       technologies: ["React", "Express", "MongoDB"],
+      category: "Web Apps",
+      rating: 0,
+    },
+    {
+      title: "Voltex | E-commerce web design",
+      description:
+        "A modern e-commerce web design showcasing 3D models and interactive product displays with smooth animations and responsive layout.",
+      link: "https://mikkodotdev.github.io/voltex-ecommerce/",
+      images: ["./images/project-imgs/Voltex Img.jpg"],
+      stars: 128,
+      technologies: ["React", "HTML", "TailwindCSS", "3D Models"],
+      category: "UI/UX",
+      rating: 0,
+    },
+    {
+      title: "Nightrelief.ai | SaaS web",
+      description:
+        "A professional SaaS web application with intuitive user interface, modern design patterns, and smooth user experience.",
+      link: "https://mikkodotdev.github.io/nightrelief-saas/",
+      images: ["./images/project-imgs/Nightrelief Img.jpg"],
+      stars: 105,
+      technologies: ["React", "HTML", "CSS"],
+      category: "UI/UX",
       rating: 0,
     },
   ];
@@ -165,6 +203,26 @@ export default function ProjectsSection() {
     }, 300);
   };
 
+  // Filter projects based on active filter
+  const getFilteredProjects = (projectList) => {
+    if (activeFilter === "All") {
+      return projectList;
+    }
+    return projectList.filter((project) => project.category === activeFilter);
+  };
+
+  const filteredFeaturedProjects = featuredProjects; // Always show all featured projects
+  let filteredRegularProjects = getFilteredProjects(projects);
+
+  // Limit to 4 projects when "All" filter is active and not expanded
+  if (
+    activeFilter === "All" &&
+    !showAllProjects &&
+    filteredRegularProjects.length > 4
+  ) {
+    filteredRegularProjects = filteredRegularProjects.slice(0, 4);
+  }
+
   return (
     <section id="projects" className="px-4 py-16 md:py-20 bg-[#181c23]">
       <div className="max-w-5xl mx-auto">
@@ -202,95 +260,94 @@ export default function ProjectsSection() {
             Featured Projects
           </h4>
           <div className="space-y-8 mb-12">
-            {featuredProjects.map((project, index) => (
-              <div
-                key={index}
-                className={`group flex ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"} gap-8 items-stretch transition-all duration-1000 transform ${
-                  visibleProjects.featured.includes(index)
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-8"
-                }`}
-              >
-                {/* Card */}
+            {filteredFeaturedProjects.length > 0 ? (
+              filteredFeaturedProjects.map((project, index) => (
                 <div
-                  className="flex-1 relative rounded-lg overflow-hidden bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700/30 hover:border-orange-400/50 transition-all duration-300"
-                  onMouseEnter={() => setHoveredProject(`featured-${index}`)}
-                  onMouseLeave={() => setHoveredProject(null)}
+                  key={index}
+                  className={`group relative h-96 rounded-lg overflow-hidden transition-all duration-1000 transform ${
+                    visibleProjects.featured.includes(index)
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-8"
+                  }`}
                 >
-                  {/* Image Section */}
-                  <div className="relative h-64 md:h-80 overflow-hidden bg-gray-700">
-                    <img
-                      src={project.images[0]}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
+                  {/* Background Image */}
+                  <div
+                    className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-500"
+                    style={{
+                      backgroundImage: `url(${project.images[0]})`,
+                    }}
+                  >
+                    <div className="absolute inset-0 bg-black/40"></div>
                   </div>
 
-                  {/* Content Section */}
-                  <div className="p-6 space-y-3">
-                    {/* Label */}
-                    <span className="inline-block px-3 py-1 bg-orange-400/20 text-orange-400 text-xs font-bold uppercase tracking-wider rounded">
-                      {project.label}
-                    </span>
+                  {/* Floating Content Box */}
+                  <div className="absolute bottom-0 right-0 w-full md:w-1/2 bg-white/95 backdrop-blur-sm rounded-tl-2xl p-8 md:p-10 shadow-2xl">
+                    {/* Label & Category */}
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="inline-block px-3 py-1 bg-orange-400/20 text-orange-500 text-xs font-bold uppercase tracking-wider rounded">
+                        {project.label}
+                      </span>
+                      <span className="inline-block px-3 py-1 bg-cyan-400/20 text-cyan-600 text-xs font-semibold uppercase tracking-wider rounded-full">
+                        {project.category}
+                      </span>
+                    </div>
 
                     {/* Title */}
-                    <h5 className="text-2xl font-bold text-white group-hover:text-orange-400 transition-colors flex items-center gap-2">
+                    <h5 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 group-hover:text-orange-500 transition-colors flex items-center gap-2">
                       {project.title}
                       <FaArrowRight
-                        size={20}
+                        size={24}
                         className="group-hover:translate-x-2 transition-transform duration-300"
                       />
                     </h5>
 
                     {/* Description */}
-                    <p className="text-gray-300 text-sm leading-relaxed">
+                    <p className="text-gray-700 text-sm leading-relaxed mb-6 line-clamp-2">
                       {project.description}
                     </p>
 
                     {/* Technologies */}
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {project.technologies.map((tech, techIndex) => (
-                        <span
-                          key={`featured-${index}-tech-${techIndex}`}
-                          className="px-2 py-1 bg-gray-700/50 text-gray-300 text-xs rounded hover:bg-orange-400 hover:text-gray-900 transition-colors cursor-pointer"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {project.technologies
+                        .slice(0, 4)
+                        .map((tech, techIndex) => (
+                          <span
+                            key={`featured-${index}-tech-${techIndex}`}
+                            className="px-3 py-1 bg-gray-200 text-gray-700 text-xs rounded-full hover:bg-orange-400 hover:text-white transition-colors cursor-pointer"
+                          >
+                            {tech}
+                          </span>
+                        ))}
                     </div>
 
-                    {/* Footer */}
-                    <div className="flex items-center justify-between pt-4 border-t border-gray-700/50">
-                      <span className="text-orange-400 font-semibold text-sm">
-                        ⭐ {project.stars.toLocaleString()}
-                      </span>
-                      <div className="flex gap-3">
-                        <a
-                          href={project.link}
-                          className="p-2 text-orange-400 hover:bg-orange-400/10 rounded-lg transition-colors"
-                          title="Visit Project"
-                        >
-                          <FaExternalLinkAlt size={16} />
-                        </a>
-                        <a
-                          href={project.link}
-                          className="p-2 text-gray-400 hover:text-white hover:bg-gray-700/50 rounded-lg transition-colors"
-                          title="View Code"
-                        >
-                          <FaGithub size={16} />
-                        </a>
-                      </div>
+                    {/* Action Buttons */}
+                    <div className="flex gap-3">
+                      <a
+                        href={project.link}
+                        className="px-6 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full font-semibold hover:shadow-lg transition-all transform hover:scale-105"
+                        title="Know More"
+                      >
+                        Know More
+                      </a>
+                      <a
+                        href={project.link}
+                        className="px-6 py-2 border-2 border-gray-900 text-gray-900 rounded-full font-semibold hover:bg-gray-100 transition-all flex items-center gap-2"
+                        title="Preview"
+                      >
+                        Preview
+                        <FaArrowRight size={14} />
+                      </a>
                     </div>
                   </div>
                 </div>
-
-                {/* Timeline Spacer (empty space for timeline aesthetic) */}
-                <div className="hidden lg:flex w-12 items-center justify-center">
-                  <div className="w-1 h-full bg-gradient-to-b from-orange-400/50 via-orange-400/30 to-transparent rounded-full"></div>
-                </div>
+              ))
+            ) : (
+              <div className="text-center py-8">
+                <p className="text-gray-400 text-lg">
+                  No featured projects found in this category.
+                </p>
               </div>
-            ))}
+            )}
           </div>
         </div>
 
@@ -301,83 +358,133 @@ export default function ProjectsSection() {
         >
           Other Projects
         </h4>
-        <div className="space-y-8">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="relative group"
-              style={{
-                opacity: visibleProjects.regular.includes(index) ? 1 : 0,
-                transform: visibleProjects.regular.includes(index)
-                  ? "translateY(0)"
-                  : "translateY(32px)",
-                transition: "all 1000ms cubic-bezier(0.4, 0, 0.2, 1)",
-              }}
-            >
-              <div>
-                <div className="flex flex-col md:flex-row gap-6 p-6 rounded-lg transition-colors duration-300 bg-transparent hover:bg-gray-800/80">
+
+        {/* Filter Tabs - Scaled Down */}
+        <div
+          className={`mb-8 transition-all duration-1000 transform ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          <div className="flex flex-wrap justify-center gap-2">
+            {filterCategories.map((category) => (
+              <button
+                key={category}
+                onClick={() => {
+                  setActiveFilter(category);
+                  setShowAllProjects(false);
+                }}
+                className={`px-3 py-1 rounded-full font-semibold text-xs transition-all duration-300 ${
+                  activeFilter === category
+                    ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg shadow-orange-500/50 scale-105"
+                    : "bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 hover:text-white border border-gray-700/30 hover:border-orange-400/50"
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {filteredRegularProjects.length > 0 ? (
+            filteredRegularProjects.map((project, index) => (
+              <div
+                key={index}
+                className="relative group"
+                style={{
+                  opacity: visibleProjects.regular.includes(index) ? 1 : 0,
+                  transform: visibleProjects.regular.includes(index)
+                    ? "translateY(0)"
+                    : "translateY(32px)",
+                  transition: "all 1000ms cubic-bezier(0.4, 0, 0.2, 1)",
+                }}
+              >
+                <div className="flex flex-col gap-4 p-0 transition-colors duration-300">
                   {/* Project Image */}
-                  <div className="md:w-40 md:h-40 flex-shrink-0">
+                  <div className="w-full h-48 overflow-hidden">
                     <img
                       src={project.images[0]}
                       alt={project.title}
-                      className="w-full h-32 md:h-40 object-cover rounded-lg bg-gray-700 group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
 
                   {/* Project Content */}
-                  <div className="flex-1 flex flex-col justify-between">
+                  <div className="flex flex-col">
+                    {/* Category Badge */}
+                    <div className="mb-2">
+                      <span className="inline-block px-2 py-1 bg-cyan-400/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider rounded-full w-fit">
+                        {project.category}
+                      </span>
+                    </div>
+
                     {/* Title and Description */}
                     <div>
-                      <h4 className="text-xl md:text-2xl font-semibold text-white mb-2 group-hover:text-orange-400 transition-colors flex items-center gap-2">
+                      <h4 className="text-lg md:text-xl font-semibold text-white mb-2 group-hover:text-orange-400 transition-colors flex items-center gap-2">
                         {project.title}
                         <FaArrowRight
-                          size={18}
+                          size={16}
                           className="group-hover:translate-x-2 transition-transform duration-300"
                         />
                       </h4>
-                      <p className="text-gray-300 text-base leading-relaxed">
+                      <p className="text-gray-300 text-sm leading-relaxed">
                         {project.description}
                       </p>
                     </div>
 
-                    {/* Stars and Tags */}
-                    <div className="mt-4 space-y-3">
-                      {/* Stars */}
-                      <div className="flex items-center">
-                        <span className="text-orange-400 font-semibold">
-                          ⭐ {project.stars.toLocaleString()}
+                    {/* Technology Tags */}
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {project.technologies.map((tech, techIndex) => (
+                        <span
+                          key={`project-${index}-tech-${techIndex}`}
+                          className="px-2 py-1 bg-gray-700 text-gray-300 text-xs rounded hover:bg-orange-400 hover:text-gray-900 transition-colors"
+                        >
+                          {tech}
                         </span>
-                      </div>
+                      ))}
+                    </div>
 
-                      {/* Technology Tags */}
-                      <div className="flex flex-wrap gap-2">
-                        {project.technologies.map((tech, techIndex) => (
-                          <span
-                            key={`project-${index}-tech-${techIndex}`}
-                            className="px-3 py-1 bg-gray-700 text-gray-300 text-sm rounded-full hover:bg-orange-400 hover:text-gray-900 transition-colors"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
+                    {/* Action Links */}
+                    <div className="flex gap-3 mt-6">
+                      <a
+                        href={project.link}
+                        className="flex-1 px-4 py-2 text-center bg-gray-800 text-white rounded hover:bg-orange-500 transition-colors text-sm font-medium"
+                        title="Visit Website"
+                      >
+                        Visit Website
+                      </a>
+                      <a
+                        href={project.link}
+                        className="p-2 text-gray-400 hover:text-white hover:bg-gray-700/50 rounded-lg transition-colors"
+                        title="View Code"
+                      >
+                        <FaGithub size={18} />
+                      </a>
                     </div>
                   </div>
                 </div>
               </div>
+            ))
+          ) : (
+            <div className="text-center py-8 col-span-full">
+              <p className="text-gray-400 text-lg">
+                No projects found in this category.
+              </p>
             </div>
-          ))}
+          )}
         </div>
 
-        {/* View Full Archive */}
-        <div className="mt-12 text-center">
-          <a
-            href="#"
-            className="inline-flex items-center text-white hover:text-orange-400 transition-colors duration-300 text-lg font-medium"
-          >
-            View Full Project Archive →
-          </a>
-        </div>
+        {/* View More Projects */}
+        {activeFilter === "All" && !showAllProjects && projects.length > 4 && (
+          <div className="mt-12 text-center">
+            <button
+              onClick={() => setShowAllProjects(true)}
+              className="inline-flex items-center text-white hover:text-orange-400 transition-colors duration-300 text-lg font-medium"
+            >
+              View More Projects →
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

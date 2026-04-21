@@ -4,6 +4,7 @@ import AboutSection from "./AboutSection";
 import SkillsSection from "./SkillsSection";
 import ProjectsSection from "./ProjectsSection";
 import ContactSection from "./ContactSection";
+import Footer from "./Footer";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -123,8 +124,8 @@ export default function Home() {
           </a>
         ))}
       </nav>
-      {/* Left Sidebar - Section Indicators */}
-      <div className="hidden lg:flex fixed left-8 top-1/2 transform -translate-y-1/2 z-10 flex-col gap-6">
+      {/* Right Sidebar - Section Indicators */}
+      <div className="hidden lg:flex fixed right-6 top-1/2 transform -translate-y-1/2 z-10 flex-col gap-4">
         {navLinks.map((link, index) => {
           const sectionId = link.href.substring(1); // Remove '#'
           const isActive = activeSection === sectionId;
@@ -139,17 +140,17 @@ export default function Home() {
                   target.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="group flex items-center gap-4 transition-all duration-300"
+              className="group flex flex-row-reverse items-center gap-2 transition-all duration-300"
             >
               <span
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   isActive
-                    ? "bg-orange-400 w-8"
+                    ? "bg-orange-400 w-6"
                     : "bg-gray-600 group-hover:bg-gray-400"
                 }`}
               />
               <span
-                className={`text-sm font-semibold uppercase tracking-widest transition-all duration-300 ${
+                className={`text-xs font-semibold uppercase tracking-widest transition-all duration-300 text-right ${
                   isActive
                     ? "text-orange-400 opacity-100"
                     : "opacity-0 group-hover:opacity-100 text-gray-400"
@@ -168,6 +169,7 @@ export default function Home() {
       <SkillsSection />
       <ProjectsSection />
       <ContactSection />
+      <Footer />
     </div>
   );
 }

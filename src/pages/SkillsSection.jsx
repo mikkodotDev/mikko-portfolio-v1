@@ -170,31 +170,7 @@ export default function SkillsSection() {
           ))}
         </div>
 
-        {/* Floating Skills Tags */}
-        <div
-          className={`mt-16 transition-all duration-1000 delay-1000 transform ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-        >
-          <div className="flex flex-wrap justify-center gap-3">
-            {[
-              "Responsive Design",
-              "API Integration",
-              "Database Design",
-              "Version Control",
-              "Agile Development",
-            ].map((tag, index) => (
-              <span
-                key={tag}
-                className={`px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-700 text-gray-300 rounded-full text-sm font-medium border border-gray-600 hover:border-orange-400 hover:text-orange-400 transition-all duration-300 transform hover:scale-105 ${isVisible ? "animate-pulse" : ""}`}
-                style={{
-                  animationDelay: `${index * 200}ms`,
-                  animationDuration: "2s",
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
+        
       </div>
     </section>
   );
