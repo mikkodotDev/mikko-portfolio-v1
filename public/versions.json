@@ -1,0 +1,22 @@
+[
+  {
+    "title": "V1: Classic",
+    "image": "./images/project-imgs/project1.jpg",
+    "link": "https://v1-portfolio.example.com"
+  },
+  {
+    "title": "V2: Modern",
+    "image": "./images/project-imgs/project2.jpg",
+    "link": "https://v2-portfolio.example.com"
+  },
+  {
+    "title": "V3: Minimal",
+    "image": "./images/project-imgs/project3.jpg",
+    "link": "https://v3-portfolio.example.com"
+  },
+  {
+    "title": "V4: Current",
+    "image": "./images/project-imgs/project4.jpg",
+    "link": "#"
+  }
+]

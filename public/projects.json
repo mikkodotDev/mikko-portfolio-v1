@@ -1,0 +1,95 @@
+{
+  "featured": [
+    {
+      "title": "RedSync PH",
+      "description": "RedSync PH is a patient-centered mobile health app that streamlines hemophilia care by enabling real-time symptom tracking, treatment management, and accessible health support tailored for Filipino patients",
+      "link": "#",
+      "images": ["./images/project-imgs/RedSyncIMG.png"],
+      "stars": 342,
+      "technologies": [
+        "Flutter",
+        "Firebase",
+        "Hive",
+        "OpenAI API",
+        "GoogleMaps API"
+      ],
+      "label": "Featured Project",
+      "category": "Mobile Apps",
+      "rating": 0
+    },
+    {
+      "title": "RentEase Davao",
+      "description": "RentEase Davao is a smart property management app that streamlines boarding house operations for landlords and keeps tenants informed through a centralized mobile platform.",
+      "link": "#",
+      "images": ["./images/project-imgs/RentEaseIMG.png"],
+      "stars": 289,
+      "technologies": ["React Native", "Supabase", "Paymongo API"],
+      "label": "Featured Project",
+      "category": "Mobile Apps",
+      "rating": 0
+    },
+    {
+      "title": "UIC Clinlab Manager",
+      "description": "UIC Clinlab Manager is a comprehensive web application built to support clinical laboratory workflows, enabling efficient patient data management alongside real-time inventory tracking for supplies and equipment.",
+      "link": "#",
+      "images": ["./images/project-imgs/ClinlabUIC.jpg"],
+      "stars": 156,
+      "technologies": ["Laravel", "Livewire", "Schoolex API"],
+      "label": "Featured Project",
+      "category": "Web Apps",
+      "rating": 0
+    }
+  ],
+  "regular": [
+    {
+      "title": "LabClass",
+      "description": "A web application for managing laboratory classes and schedules.",
+      "link": "#",
+      "images": ["./images/placeholder.jpg"],
+      "stars": 156,
+      "technologies": ["React", "Node.js", "MySQL"],
+      "category": "Web Apps",
+      "rating": 0
+    },
+    {
+      "title": "RentEase Davao",
+      "description": "A web application for managing rental properties in Davao.",
+      "link": "#",
+      "images": ["./images/project-imgs/RentEaseIMG.png"],
+      "stars": 92,
+      "technologies": ["React", "Express", "MongoDB"],
+      "category": "Mobile Apps",
+      "rating": 0
+    },
+    {
+      "title": "Voltex | E-commerce web design",
+      "description": "A modern e-commerce web design showcasing 3D models and interactive product displays with smooth animations and responsive layout.",
+      "link": "https://mikkodotdev.github.io/voltex-ecommerce/",
+      "images": ["./images/project-imgs/Voltex Img.jpg"],
+      "stars": 128,
+      "technologies": ["React", "HTML", "TailwindCSS", "3D Models"],
+      "category": "UI/UX",
+      "rating": 0
+    },
+    {
+      "title": "Nightrelief.ai | SaaS web",
+      "description": "A professional SaaS web application with intuitive user interface, modern design patterns, and smooth user experience.",
+      "link": "https://mikkodotdev.github.io/nightrelief-saas/",
+      "images": ["./images/project-imgs/Nightrelief Img.jpg"],
+      "stars": 105,
+      "technologies": ["React", "HTML", "CSS"],
+      "category": "UI/UX",
+      "rating": 0
+    },
+    {
+      "title": "Allieurs | Booking web",
+      "description": "A luxury travel booking platform with elegant design, seamless user experience, and comprehensive journey planning features for curated destinations.",
+      "link": "https://mikkodotdev.github.io/ailleurs-booking/",
+      "images": ["./images/project-imgs/ailleurs Img.jpg"],
+      "stars": 98,
+      "technologies": ["React", "HTML", "TailwindCSS"],
+      "category": "UI/UX",
+      "rating": 0
+    }
+  ]
+}

@@ -19,10 +19,13 @@ export default function ProjectsSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeFilter, setActiveFilter] = useState("All");
   const [showAllProjects, setShowAllProjects] = useState(false);
+  const [isFilterTransitioning, setIsFilterTransitioning] = useState(false);
   const [visibleProjects, setVisibleProjects] = useState({
     featured: [],
     regular: [],
   });
+  const [featuredProjects, setFeaturedProjects] = useState([]);
+  const [projects, setProjects] = useState([]);
 
   const filterCategories = [
     "All",
@@ -32,6 +35,17 @@ export default function ProjectsSection() {
     // "Graphics",
     // "CMS",
   ];
+
+  // Fetch projects from JSON
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}projects.json`)
+      .then((response) => response.json())
+      .then((data) => {
+        setFeaturedProjects(data.featured);
+        setProjects(data.regular);
+      })
+      .catch((error) => console.error("Error loading projects:", error));
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -52,9 +66,9 @@ export default function ProjectsSection() {
   }, []);
 
   useEffect(() => {
-    if (isVisible) {
+    if (isVisible && featuredProjects.length > 0 && projects.length > 0) {
       // Animate featured projects
-      [0, 1, 2].forEach((index) => {
+      Array.from({ length: featuredProjects.length }).forEach((_, index) => {
         setTimeout(() => {
           setVisibleProjects((prev) => ({
             ...prev,
@@ -64,7 +78,7 @@ export default function ProjectsSection() {
       });
 
       // Animate regular projects
-      [0, 1, 2, 3].forEach((index) => {
+      Array.from({ length: projects.length }).forEach((_, index) => {
         setTimeout(
           () => {
             setVisibleProjects((prev) => ({
@@ -72,102 +86,11 @@ export default function ProjectsSection() {
               regular: [...prev.regular, index],
             }));
           },
-          (index + 3) * 150,
+          (index + featuredProjects.length) * 150,
         );
       });
     }
-  }, [isVisible]);
-
-  const featuredProjects = [
-    {
-      title: "RedSync PH",
-      description:
-        "RedSync PH is a patient-centered mobile health app that streamlines hemophilia care by enabling real-time symptom tracking, treatment management, and accessible health support tailored for Filipino patients",
-      link: "#",
-      images: ["./images/placeholder.jpg"],
-      stars: 342,
-      technologies: [
-        "Flutter",
-        "Firebase",
-        "Hive",
-        "OpenAI API",
-        "GoogleMaps API",
-      ],
-      label: "Featured Project",
-      category: "Mobile Apps",
-      rating: 0,
-    },
-    {
-      title: "RentEase Davao",
-      description:
-        "RentEase Davao is a smart property management app that streamlines boarding house operations for landlords and keeps tenants informed through a centralized mobile platform.",
-      link: "#",
-      images: ["./images/placeholder.jpg"],
-      stars: 289,
-      technologies: ["React Native", "Supabase", "Paymongo API"],
-      label: "Featured Project",
-      category: "Mobile Apps",
-      rating: 0,
-    },
-    {
-      title: "UIC Clinlab Manager",
-      description:
-        "UIC Clinlab Manager is a comprehensive web application built to support clinical laboratory workflows, enabling efficient patient data management alongside real-time inventory tracking for supplies and equipment.",
-      link: "#",
-      images: ["./images/project-imgs/ClinlabUIC.jpg"],
-      stars: 156,
-      technologies: ["Laravel", "Livewire", "Schoolex API"],
-      label: "Featured Project",
-      category: "Web Apps",
-      rating: 0,
-    },
-  ];
-
-  const projects = [
-    {
-      title: "LabClass",
-      description:
-        "A web application for managing laboratory classes and schedules.",
-      link: "#",
-      images: ["./images/placeholder.jpg"],
-      stars: 156,
-      technologies: ["React", "Node.js", "MySQL"],
-      category: "Web Apps",
-      rating: 0,
-    },
-    {
-      title: "RentEase Davao",
-      description: "A web application for managing rental properties in Davao.",
-      link: "#",
-      images: ["./images/placeholder.jpg"],
-      stars: 92,
-      technologies: ["React", "Express", "MongoDB"],
-      category: "Web Apps",
-      rating: 0,
-    },
-    {
-      title: "Voltex | E-commerce web design",
-      description:
-        "A modern e-commerce web design showcasing 3D models and interactive product displays with smooth animations and responsive layout.",
-      link: "https://mikkodotdev.github.io/voltex-ecommerce/",
-      images: ["./images/project-imgs/Voltex Img.jpg"],
-      stars: 128,
-      technologies: ["React", "HTML", "TailwindCSS", "3D Models"],
-      category: "UI/UX",
-      rating: 0,
-    },
-    {
-      title: "Nightrelief.ai | SaaS web",
-      description:
-        "A professional SaaS web application with intuitive user interface, modern design patterns, and smooth user experience.",
-      link: "https://mikkodotdev.github.io/nightrelief-saas/",
-      images: ["./images/project-imgs/Nightrelief Img.jpg"],
-      stars: 105,
-      technologies: ["React", "HTML", "CSS"],
-      category: "UI/UX",
-      rating: 0,
-    },
-  ];
+  }, [isVisible, featuredProjects, projects]);
 
   const handleProjectHover = (projectIndex) => {
     setHoveredProject(projectIndex);
@@ -281,7 +204,7 @@ export default function ProjectsSection() {
                   </div>
 
                   {/* Floating Content Box */}
-                  <div className="absolute bottom-0 right-0 w-full md:w-1/2 bg-white/95 backdrop-blur-sm rounded-tl-2xl p-8 md:p-10 shadow-2xl">
+                  <div className="absolute bottom-0 right-0 w-full md:w-1/2 bg-gray-900/90 backdrop-blur-sm rounded-tl-2xl p-8 md:p-10 shadow-2xl border-l border-t border-gray-700/50">
                     {/* Label & Category */}
                     <div className="flex items-center gap-2 mb-4">
                       <span className="inline-block px-3 py-1 bg-orange-400/20 text-orange-500 text-xs font-bold uppercase tracking-wider rounded">
@@ -293,7 +216,7 @@ export default function ProjectsSection() {
                     </div>
 
                     {/* Title */}
-                    <h5 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 group-hover:text-orange-500 transition-colors flex items-center gap-2">
+                    <h5 className="text-2xl md:text-3xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors flex items-center gap-2">
                       {project.title}
                       <FaArrowRight
                         size={24}
@@ -302,7 +225,7 @@ export default function ProjectsSection() {
                     </h5>
 
                     {/* Description */}
-                    <p className="text-gray-700 text-sm leading-relaxed mb-6 line-clamp-2">
+                    <p className="text-gray-300 text-sm leading-relaxed mb-6 line-clamp-2">
                       {project.description}
                     </p>
 
@@ -313,7 +236,7 @@ export default function ProjectsSection() {
                         .map((tech, techIndex) => (
                           <span
                             key={`featured-${index}-tech-${techIndex}`}
-                            className="px-3 py-1 bg-gray-200 text-gray-700 text-xs rounded-full hover:bg-orange-400 hover:text-white transition-colors cursor-pointer"
+                            className="px-3 py-1 bg-gray-700 text-gray-200 text-xs rounded-full hover:bg-orange-400 hover:text-gray-900 transition-colors cursor-pointer"
                           >
                             {tech}
                           </span>
@@ -331,7 +254,7 @@ export default function ProjectsSection() {
                       </a>
                       <a
                         href={project.link}
-                        className="px-6 py-2 border-2 border-gray-900 text-gray-900 rounded-full font-semibold hover:bg-gray-100 transition-all flex items-center gap-2"
+                        className="px-6 py-2 border-2 border-gray-400 text-gray-200 rounded-full font-semibold hover:bg-gray-600 hover:border-gray-500 transition-all flex items-center gap-2"
                         title="Preview"
                       >
                         Preview
@@ -370,8 +293,12 @@ export default function ProjectsSection() {
               <button
                 key={category}
                 onClick={() => {
-                  setActiveFilter(category);
-                  setShowAllProjects(false);
+                  setIsFilterTransitioning(true);
+                  setTimeout(() => {
+                    setActiveFilter(category);
+                    setShowAllProjects(false);
+                    setIsFilterTransitioning(false);
+                  }, 150);
                 }}
                 className={`px-3 py-1 rounded-full font-semibold text-xs transition-all duration-300 ${
                   activeFilter === category
@@ -385,7 +312,9 @@ export default function ProjectsSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div
+          className={`grid grid-cols-1 md:grid-cols-2 gap-8 transition-all duration-300 ${isFilterTransitioning ? "opacity-50" : "opacity-100"}`}
+        >
           {filteredRegularProjects.length > 0 ? (
             filteredRegularProjects.map((project, index) => (
               <div
@@ -476,10 +405,12 @@ export default function ProjectsSection() {
 
         {/* View More Projects */}
         {activeFilter === "All" && !showAllProjects && projects.length > 4 && (
-          <div className="mt-12 text-center">
+          <div className="mt-12 text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
             <button
-              onClick={() => setShowAllProjects(true)}
-              className="inline-flex items-center text-white hover:text-orange-400 transition-colors duration-300 text-lg font-medium"
+              onClick={() => {
+                setShowAllProjects(true);
+              }}
+              className="inline-flex items-center text-white hover:text-orange-400 transition-all duration-300 text-lg font-medium hover:scale-110 transform"
             >
               View More Projects →
             </button>

@@ -1,38 +1,39 @@
 // Hero section for portfolio homepage
 import { useState, useEffect } from "react";
 
+const ROLES = ["Front End Developer", "Mobile Developer", "UI/UX Designer"];
+
 export default function HeroSection({ theme = "evening", colors = {} }) {
   const [isVisible, setIsVisible] = useState(false);
-  const [typedText, setTypedText] = useState("");
-  const roles = ["Front End Developer", "Mobile Developer", "UI/UX Designer"];
+  const [displayText, setDisplayText] = useState("");
   const [currentRole, setCurrentRole] = useState(0);
 
   useEffect(() => {
     setIsVisible(true);
+  }, []);
 
-    // Typing animation for roles
-    const typeRole = () => {
-      const role = roles[currentRole];
-      let index = 0;
-      setTypedText("");
+  // Typing animation effect
+  useEffect(() => {
+    const role = ROLES[currentRole];
+    let index = 0;
+    let currentText = "";
 
-      const typeInterval = setInterval(() => {
-        setTypedText(role.substring(0, index + 1));
-        index++;
+    const typeInterval = setInterval(() => {
+      currentText = role.substring(0, index + 1);
+      setDisplayText(currentText);
+      index++;
 
-        if (index === role.length) {
-          clearInterval(typeInterval);
-          setTimeout(() => {
-            setCurrentRole((prev) => (prev + 1) % roles.length);
-          }, 2000);
-        }
-      }, 100);
-    };
+      if (index === role.length) {
+        clearInterval(typeInterval);
+        // Wait before switching to next role
+        setTimeout(() => {
+          setDisplayText("");
+          setCurrentRole((prev) => (prev + 1) % ROLES.length);
+        }, 2000);
+      }
+    }, 60);
 
-    typeRole();
-    const roleInterval = setInterval(typeRole, 4000);
-
-    return () => clearInterval(roleInterval);
+    return () => clearInterval(typeInterval);
   }, [currentRole]);
 
   return (
@@ -91,9 +92,9 @@ export default function HeroSection({ theme = "evening", colors = {} }) {
               </h1>
 
               {/* Animated Role */}
-              <div className="h-12 md:h-16">
+              <div className="h-16 md:h-20 flex items-center">
                 <h2
-                  className={`text-xl md:text-3xl font-semibold ${
+                  className={`text-2xl md:text-3xl font-semibold ${
                     theme === "morning"
                       ? "text-slate-700"
                       : theme === "noon"
@@ -101,7 +102,7 @@ export default function HeroSection({ theme = "evening", colors = {} }) {
                         : "text-gray-300"
                   }`}
                 >
-                  {typedText}
+                  {displayText}
                   <span className="animate-pulse text-orange-400">|</span>
                 </h2>
               </div>
@@ -129,8 +130,10 @@ export default function HeroSection({ theme = "evening", colors = {} }) {
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </button>
 
-              <button
-                className={`group px-8 py-4 border-2 font-semibold rounded-xl transition-all duration-300 relative overflow-hidden ${
+              <a
+                href="/files/MikkodotDev-Resume.pdf"
+                download="MikkodotDev-Resume.pdf"
+                className={`group px-8 py-4 border-2 font-semibold rounded-xl transition-all duration-300 relative overflow-hidden inline-flex items-center justify-center ${
                   theme === "morning"
                     ? "border-slate-300 text-slate-600 hover:border-orange-500 hover:text-orange-500"
                     : theme === "noon"
@@ -154,48 +157,7 @@ export default function HeroSection({ theme = "evening", colors = {} }) {
                     />
                   </svg>
                 </span>
-              </button>
-            </div>
-
-            {/* Tech Stack */}
-            <div className="space-y-3">
-              <p
-                className={`text-sm uppercase tracking-wide ${
-                  theme === "morning"
-                    ? "text-slate-500"
-                    : theme === "noon"
-                      ? "text-slate-400"
-                      : "text-gray-500"
-                }`}
-              >
-                Tech Stack
-              </p>
-              <div className="flex flex-wrap gap-3">
-                {[
-                  "React",
-                  "React Native",
-                  "Flutter",
-                  "Node.js",
-                  "Tailwind CSS",
-                  "MongoDB",
-                  "Laravel",
-                  "Django",
-                ].map((tech, index) => (
-                  <span
-                    key={tech}
-                    className={`px-3 py-1 border rounded-lg text-sm transition-all duration-300 cursor-pointer transform hover:scale-105 ${
-                      theme === "morning"
-                        ? "bg-slate-200/50 border-slate-300/50 text-slate-700 hover:border-orange-400 hover:text-orange-500"
-                        : theme === "noon"
-                          ? "bg-sky-200/50 border-sky-300/50 text-slate-700 hover:border-orange-400 hover:text-orange-400"
-                          : "bg-gray-800/50 border-gray-700/50 text-gray-300 hover:border-orange-400/50 hover:text-orange-400"
-                    }`}
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
+              </a>
             </div>
           </div>
 

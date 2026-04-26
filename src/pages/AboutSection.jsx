@@ -11,7 +11,14 @@ import {
   FaBriefcase,
   FaCheck,
 } from "react-icons/fa";
-import { SiReact, SiFlutter, SiNodedotjs, SiFirebase } from "react-icons/si";
+import {
+  SiReact,
+  SiFlutter,
+  SiNodedotjs,
+  SiFirebase,
+  SiWordpress,
+  SiLaravel,
+} from "react-icons/si";
 
 export default function AboutSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -22,6 +29,7 @@ export default function AboutSection() {
     rotateX: 0,
     rotateY: 0,
   });
+  const [animatedStats, setAnimatedStats] = useState([0, 0, 0, 0]);
 
   const workCategories = [
     "All",
@@ -37,7 +45,13 @@ export default function AboutSection() {
       description:
         "Building modern, responsive web applications with React, Node.js, and Firebase. I focus on clean code, scalability, and user-centric design.",
       icon: FaGlobe,
-      technologies: ["React", "Node.js", "Tailwind CSS", "Firebase"],
+      technologies: [
+        "React",
+        "Node.js",
+        "Tailwind CSS",
+        "Firebase",
+        "Wordpress",
+      ],
     },
     {
       title: "Mobile App Development",
@@ -92,6 +106,32 @@ export default function AboutSection() {
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const animationDuration = 2000; // 2 seconds
+    const frameRate = 60;
+    const totalFrames = (animationDuration / 1000) * frameRate;
+    let currentFrame = 0;
+
+    const interval = setInterval(() => {
+      currentFrame++;
+      const progress = Math.min(currentFrame / totalFrames, 1);
+      const easeOutQuad = 1 - Math.pow(1 - progress, 2);
+
+      setAnimatedStats([
+        Math.floor(4 * easeOutQuad),
+        Math.floor(2 * easeOutQuad),
+        Math.floor(100 * easeOutQuad),
+        Math.floor(5 * easeOutQuad),
+      ]);
+
+      if (progress === 1) clearInterval(interval);
+    }, 1000 / frameRate);
+
+    return () => clearInterval(interval);
+  }, [isVisible]);
 
   const handleImageHover = (e) => {
     const element = e.currentTarget;
@@ -177,7 +217,6 @@ export default function AboutSection() {
           >
             {/* Personal Story */}
             <div className="space-y-6">
-
               <div>
                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-3 leading-tight">
                   I Build Digital Solutions That Users Love
@@ -185,20 +224,21 @@ export default function AboutSection() {
                 <p className="text-lg text-gray-300 leading-relaxed mb-4">
                   I'm{" "}
                   <span className="text-orange-400 font-semibold">Mikko</span>,
-                  a passionate full-stack developer specializing in creating
-                  modern web and mobile applications. With expertise in React,
-                  Flutter, and Firebase, I transform ideas into scalable,
-                  user-centric digital products.
+                  a full-stack developer focused on building clean, scalable web
+                  and mobile applications. I work with React, Flutter, Firebase,
+                  and Node.js to turn ideas into fast, user-friendly products
+                  that actually solve real problems.
                 </p>
                 <p className="text-gray-400 leading-relaxed mb-4">
-                  I'm driven by clean code, intuitive design, and solving
-                  real-world problems. Whether it's crafting responsive web apps
-                  or building smooth mobile experiences, I bring creativity and
-                  technical excellence to every project.
+                  I enjoy bridging design and development—creating interfaces
+                  that not only look good but feel intuitive. Whether it's a
+                  responsive web app, a mobile experience, or a WordPress-based
+                  solution, I aim to deliver work that's practical, reliable,
+                  and easy to use.
                 </p>
                 <p className="text-sm text-orange-400 font-semibold">
-                  Currently Open to: Internships • Freelance Projects • Junior
-                  Developer Roles
+                  Currently open to internships, freelance projects, and junior
+                  developer roles.
                 </p>
               </div>
             </div>
@@ -253,6 +293,24 @@ export default function AboutSection() {
                   <SiNodedotjs className="text-green-500 text-lg" />
                   <span className="text-gray-300 text-sm font-medium">
                     Node.js
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2 px-4 py-2 bg-gray-800/50 rounded-lg border border-gray-700/30 hover:border-orange-400/50 transition-all">
+                  <FaMobileAlt className="text-blue-400 text-lg" />
+                  <span className="text-gray-300 text-sm font-medium">
+                    React Native
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2 px-4 py-2 bg-gray-800/50 rounded-lg border border-gray-700/30 hover:border-orange-400/50 transition-all">
+                  <SiWordpress className="text-blue-600 text-lg" />
+                  <span className="text-gray-300 text-sm font-medium">
+                    WordPress
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2 px-4 py-2 bg-gray-800/50 rounded-lg border border-gray-700/30 hover:border-orange-400/50 transition-all">
+                  <SiLaravel className="text-red-600 text-lg" />
+                  <span className="text-gray-300 text-sm font-medium">
+                    Laravel
                   </span>
                 </div>
               </div>
@@ -339,11 +397,12 @@ export default function AboutSection() {
                         : "bg-gradient-to-br from-gray-800/30 to-gray-900/30 border-gray-700/30 hover:border-orange-400/30"
                     }`}
                   >
-                    <div className="text-2xl mb-2 text-orange-400 group-hover:scale-125 transition-transform duration-300">
+                    <div className="text-2xl mb-2 text-orange-400">
                       <StatIcon />
                     </div>
                     <div className="text-3xl font-bold text-white mb-1">
-                      {stat.number}
+                      {animatedStats[index]}
+                      {stat.number.replace(/\d+/g, "")}
                     </div>
                     <div className="text-sm text-gray-300 font-medium">
                       {stat.label}
