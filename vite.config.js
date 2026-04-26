@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  base: process.env.NODE_ENV === 'production' ? '/MyPortfolio/' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/' : '/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

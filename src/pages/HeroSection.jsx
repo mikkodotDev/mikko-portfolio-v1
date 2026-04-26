@@ -125,10 +125,13 @@ export default function HeroSection({ theme = "evening", colors = {} }) {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-10">
-              <button className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-orange-500/25 transform hover:scale-105 transition-all duration-300">
+              <a
+                href="#contact"
+                className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-orange-500/25 transform hover:scale-105 transition-all duration-300 inline-block"
+              >
                 <span className="relative z-10">Let's Work Together</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </button>
+              </a>
 
               <a
                 href="/files/MikkodotDev-Resume.pdf"

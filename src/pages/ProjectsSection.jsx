@@ -32,8 +32,8 @@ export default function ProjectsSection() {
     "Web Apps",
     "Mobile Apps",
     "UI/UX",
+    "CMS",
     // "Graphics",
-    // "CMS",
   ];
 
   // Fetch projects from JSON
@@ -151,15 +151,18 @@ export default function ProjectsSection() {
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="mb-12 text-center">
-          <h3
+          <h2
             className={`text-3xl md:text-4xl font-bold text-white mb-4 transition-all duration-1000 transform ${
               isVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 -translate-y-8"
             }`}
           >
-            My Projects
-          </h3>
+            My{" "}
+            <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+              Projects
+            </span>
+          </h2>
           <p
             className={`text-gray-400 text-lg max-w-2xl mx-auto transition-all duration-1000 delay-200 transform ${
               isVisible
@@ -248,16 +251,28 @@ export default function ProjectsSection() {
                       <a
                         href={project.link}
                         className="px-6 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full font-semibold hover:shadow-lg transition-all transform hover:scale-105"
-                        title="Know More"
+                        title={
+                          project.category === "Mobile Apps"
+                            ? "Download"
+                            : "Know More"
+                        }
                       >
-                        Know More
+                        {project.category === "Mobile Apps"
+                          ? "Download"
+                          : "Know More"}
                       </a>
                       <a
                         href={project.link}
                         className="px-6 py-2 border-2 border-gray-400 text-gray-200 rounded-full font-semibold hover:bg-gray-600 hover:border-gray-500 transition-all flex items-center gap-2"
-                        title="Preview"
+                        title={
+                          project.category === "Mobile Apps"
+                            ? "Details"
+                            : "Preview"
+                        }
                       >
-                        Preview
+                        {project.category === "Mobile Apps"
+                          ? "Details"
+                          : "Preview"}
                         <FaArrowRight size={14} />
                       </a>
                     </div>
@@ -378,9 +393,15 @@ export default function ProjectsSection() {
                       <a
                         href={project.link}
                         className="flex-1 px-4 py-2 text-center bg-gray-800 text-white rounded hover:bg-orange-500 transition-colors text-sm font-medium"
-                        title="Visit Website"
+                        title={
+                          project.category === "Mobile Apps"
+                            ? "Download"
+                            : "Visit Website"
+                        }
                       >
-                        Visit Website
+                        {project.category === "Mobile Apps"
+                          ? "Download"
+                          : "Visit Website"}
                       </a>
                       <a
                         href={project.link}
@@ -397,7 +418,7 @@ export default function ProjectsSection() {
           ) : (
             <div className="text-center py-8 col-span-full">
               <p className="text-gray-400 text-lg">
-                No projects found in this category.
+                No projects found in this category yet.
               </p>
             </div>
           )}

@@ -3,7 +3,7 @@
     {
       "title": "RedSync PH",
       "description": "RedSync PH is a patient-centered mobile health app that streamlines hemophilia care by enabling real-time symptom tracking, treatment management, and accessible health support tailored for Filipino patients",
-      "link": "#",
+      "link": "https://github.com/mikkodotDev/redsync-ph",
       "images": ["./images/project-imgs/RedSyncIMG.png"],
       "stars": 342,
       "technologies": [
@@ -20,7 +20,7 @@
     {
       "title": "RentEase Davao",
       "description": "RentEase Davao is a smart property management app that streamlines boarding house operations for landlords and keeps tenants informed through a centralized mobile platform.",
-      "link": "#",
+      "link": "https://github.com/mikkodotDev/rentease-davao",
       "images": ["./images/project-imgs/RentEaseIMG.png"],
       "stars": 289,
       "technologies": ["React Native", "Supabase", "Paymongo API"],
@@ -31,7 +31,7 @@
     {
       "title": "UIC Clinlab Manager",
       "description": "UIC Clinlab Manager is a comprehensive web application built to support clinical laboratory workflows, enabling efficient patient data management alongside real-time inventory tracking for supplies and equipment.",
-      "link": "#",
+      "link": "https://clinlab.uic.edu.ph/login",
       "images": ["./images/project-imgs/ClinlabUIC.jpg"],
       "stars": 156,
       "technologies": ["Laravel", "Livewire", "Schoolex API"],
@@ -44,7 +44,7 @@
     {
       "title": "LabClass",
       "description": "A web application for managing laboratory classes and schedules.",
-      "link": "#",
+      "link": "https://github.com/mikkodotDev/labclass",
       "images": ["./images/placeholder.jpg"],
       "stars": 156,
       "technologies": ["React", "Node.js", "MySQL"],
@@ -54,7 +54,7 @@
     {
       "title": "RentEase Davao",
       "description": "A web application for managing rental properties in Davao.",
-      "link": "#",
+      "link": "https://github.com/mikkodotDev/rentease-davao",
       "images": ["./images/project-imgs/RentEaseIMG.png"],
       "stars": 92,
       "technologies": ["React", "Express", "MongoDB"],

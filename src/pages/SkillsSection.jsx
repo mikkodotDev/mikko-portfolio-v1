@@ -114,11 +114,14 @@ export default function SkillsSection() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <h3
+          <h2
             className={`text-3xl md:text-4xl font-bold mb-4 text-white transition-all duration-1000 transform ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"}`}
           >
-            Technical Skills
-          </h3>
+            Technical{" "}
+            <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+              Skills
+            </span>
+          </h2>
           <p
             className={`text-gray-400 text-lg max-w-2xl mx-auto transition-all duration-1000 delay-200 transform ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
           >
@@ -169,8 +172,6 @@ export default function SkillsSection() {
             </div>
           ))}
         </div>
-
-        
       </div>
     </section>
   );
