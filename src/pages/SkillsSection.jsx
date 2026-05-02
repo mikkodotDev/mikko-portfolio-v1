@@ -109,7 +109,8 @@ export default function SkillsSection() {
   return (
     <section
       id="skills"
-      className="px-4 py-16 md:py-20 bg-[#181c23] overflow-hidden"
+      className="md:sticky top-0 px-4 py-16 md:py-20 bg-[#181c23] overflow-hidden"
+      style={{ zIndex: 70 }}
     >
       <div className="max-w-6xl mx-auto">
         {/* Header */}

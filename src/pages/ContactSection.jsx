@@ -55,6 +55,7 @@ export default function ContactSection() {
     <section
       id="contact"
       className="py-16 md:py-24 bg-gradient-to-br from-[#0f1419] via-[#181c23] to-[#232733] overflow-hidden"
+      style={{ position: "relative", zIndex: 101 }}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Section Header */}

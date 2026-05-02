@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import HeroSection from "./HeroSection";
 import AboutSection from "./AboutSection";
+import ServicesSection from "./ServicesSection";
 import SkillsSection from "./SkillsSection";
 import ProjectsSection from "./ProjectsSection";
 import ContactSection from "./ContactSection";
@@ -9,42 +10,32 @@ import Footer from "./Footer";
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isNavVisible, setIsNavVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [activeSection, setActiveSection] = useState("home");
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // If scrolling down, hide nav; if scrolling up, show nav
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsNavVisible(false);
-      } else {
+      // Show nav when: at the top, scrolling up, or near the top
+      if (currentScrollY < 100 || currentScrollY < lastScrollY.current) {
         setIsNavVisible(true);
+      } else if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        // Hide nav when scrolling down past 100px
+        setIsNavVisible(false);
       }
 
-      setLastScrollY(currentScrollY);
-
-      // Detect active section
-      const sections = ["home", "about", "skills", "projects", "contact"];
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 150 && rect.bottom >= 150) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll);
+    // run once on mount to set initial nav visibility
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, []);
   const navLinks = [
     { href: "#home", label: "Home" },
     { href: "#about", label: "About" },
+    { href: "#services", label: "Services" },
     { href: "#skills", label: "Skills" },
     { href: "#projects", label: "Projects" },
     { href: "#contact", label: "Contacts" },
@@ -58,6 +49,7 @@ export default function Home() {
             ? "translate-y-0 opacity-100"
             : "-translate-y-full opacity-0"
         }`}
+        style={{ zIndex: 999 }}
       >
         <div className="text-2xl font-extrabold tracking-wide drop-shadow-lg">
           Mikko Jardenico
@@ -101,8 +93,8 @@ export default function Home() {
       </header>
       {/* Mobile Nav */}
       <nav
-        className={`md:hidden fixed top-0 left-0 w-full h-full bg-[#181c23] bg-opacity-95 flex flex-col items-center justify-center z-30 transition-transform duration-500 ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
-        style={{ pointerEvents: menuOpen ? "auto" : "none" }}
+        className={`md:hidden fixed top-0 left-0 w-full h-full bg-[#181c23] bg-opacity-95 flex flex-col items-center justify-center transition-transform duration-500 ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
+        style={{ pointerEvents: menuOpen ? "auto" : "none", zIndex: 9999 }}
       >
         {navLinks.map((link) => (
           <a
@@ -124,48 +116,10 @@ export default function Home() {
           </a>
         ))}
       </nav>
-      {/* Right Sidebar - Section Indicators */}
-      <div className="hidden lg:flex fixed right-6 top-1/2 transform -translate-y-1/2 z-10 flex-col gap-4">
-        {navLinks.map((link, index) => {
-          const sectionId = link.href.substring(1); // Remove '#'
-          const isActive = activeSection === sectionId;
-          return (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={(e) => {
-                e.preventDefault();
-                const target = document.querySelector(link.href);
-                if (target) {
-                  target.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
-              className="group flex flex-row-reverse items-center gap-2 transition-all duration-300"
-            >
-              <span
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  isActive
-                    ? "bg-orange-400 w-6"
-                    : "bg-gray-600 group-hover:bg-gray-400"
-                }`}
-              />
-              <span
-                className={`text-xs font-semibold uppercase tracking-widest transition-all duration-300 text-right ${
-                  isActive
-                    ? "text-orange-400 opacity-100"
-                    : "opacity-0 group-hover:opacity-100 text-gray-400"
-                }`}
-              >
-                {link.label}
-              </span>
-            </a>
-          );
-        })}
-      </div>
-
       {/* Main Sections */}
       <HeroSection />
       <AboutSection />
+      <ServicesSection />
       <SkillsSection />
       <ProjectsSection />
       <ContactSection />

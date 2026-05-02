@@ -39,13 +39,14 @@ export default function HeroSection({ theme = "evening", colors = {} }) {
   return (
     <section
       id="home"
-      className={`relative min-h-screen flex items-center px-4 md:px-8 overflow-hidden transition-colors duration-1000 ${
+      className={`relative md:sticky top-0 min-h-screen flex items-center px-4 md:px-8 overflow-hidden transition-colors duration-1000 ${
         theme === "morning"
           ? "bg-slate-50"
           : theme === "noon"
             ? "bg-sky-50"
             : "bg-gradient-to-br from-[#0f1419] via-[#181c23] to-[#232733]"
       }`}
+      style={{ zIndex: 30 }}
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">

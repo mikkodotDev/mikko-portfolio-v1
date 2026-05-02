@@ -1,0 +1,44 @@
+{
+  "services": [
+    {
+      "title": "Web Development",
+      "description": "I build responsive and modern websites using React, Tailwind CSS, and WordPress. I focus on clean UI, fast performance, and mobile-first design to ensure a smooth user experience.",
+      "technologies": [
+        "SiReact",
+        "SiTailwindcss",
+        "SiJavascript",
+        "SiNodedotjs"
+      ]
+    },
+    {
+      "title": "WordPress & WooCommerce",
+      "description": "I create and customize WordPress websites, including WooCommerce stores with product variations, payment setup, and essential integrations like analytics and tracking tools.",
+      "technologies": ["SiWordpress", "SiWoocommerce", "SiPhp", "SiMysql"]
+    },
+    {
+      "title": "UI/UX Design",
+      "description": "I design clean and user-friendly interfaces in Figma, focusing on usability, accessibility, and converting ideas into intuitive digital experiences.",
+      "technologies": [
+        "SiFigma",
+        "SiAdobexd",
+        "SiAdobephotoshop",
+        "SiAdobeillustrator"
+      ]
+    },
+    {
+      "title": "Firebase & Backend Integration",
+      "description": "I integrate backend services using Firebase, including authentication, real-time databases, and cloud functions to support scalable web applications.",
+      "technologies": ["SiFirebase", "SiNodedotjs", "SiExpress", "SiMongodb"]
+    },
+    {
+      "title": "Web App Features & Systems",
+      "description": "I develop functional systems such as dashboards, notifications, and progress tracking tools using React and modern frontend practices.",
+      "technologies": ["SiReact", "SiJavascript", "SiNodedotjs", "SiRedux"]
+    },
+    {
+      "title": "Virtual Assistance (Tech-Focused)",
+      "description": "I assist with website updates, content management, data entry, and basic technical tasks to help streamline your workflow.",
+      "technologies": ["SiWordpress", "SiGooglesheets", "SiGmail", "FaHeadset"]
+    }
+  ]
+}

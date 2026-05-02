@@ -147,7 +147,11 @@ export default function ProjectsSection() {
   }
 
   return (
-    <section id="projects" className="px-4 py-16 md:py-20 bg-[#181c23]">
+    <section
+      id="projects"
+      className="px-4 py-16 md:py-20 bg-[#1f2635]"
+      style={{ position: "relative", zIndex: 100 }}
+    >
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="mb-12 text-center">

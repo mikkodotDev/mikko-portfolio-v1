@@ -160,7 +160,8 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="py-16 md:py-24 bg-gradient-to-br from-[#1a1f2e] via-[#23272f] to-[#2a2d3a] overflow-hidden"
+      className="md:sticky top-0 py-16 md:py-24 bg-gradient-to-br from-[#1a1f2e] via-[#23272f] to-[#2a2d3a] overflow-hidden"
+      style={{ zIndex: 35 }}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Section Header */}
@@ -417,3 +418,5 @@ export default function AboutSection() {
     </section>
   );
 }
+
+// Found an issue where I cannot see the bottom part of about me section -- Fixing

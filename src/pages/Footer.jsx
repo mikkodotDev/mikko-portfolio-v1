@@ -116,6 +116,7 @@ export default function Footer() {
         className={`bg-gradient-to-br from-[#181c23] via-[#0f1217] to-[#0a0d12] border-t border-gray-800/50 transform transition-all duration-1000 ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
         }`}
+        style={{ position: "relative", zIndex: 102 }}
       >
         {/* Scroll to Top Button */}
         <button
