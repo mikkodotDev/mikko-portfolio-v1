@@ -160,8 +160,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="md:sticky top-0 py-16 md:py-24 bg-gradient-to-br from-[#1a1f2e] via-[#23272f] to-[#2a2d3a] overflow-hidden"
-      style={{ zIndex: 35 }}
+      className="py-16 md:py-24 bg-gradient-to-br from-[#1a1f2e] via-[#23272f] to-[#2a2d3a] overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Section Header */}
@@ -322,16 +321,22 @@ export default function AboutSection() {
           <div
             className={`transform transition-all duration-1000 delay-300 ${isVisible ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"}`}
           >
-            <h3 className="text-2xl font-bold text-white mb-6">What I Do</h3>
-            <div className="flex gap-6">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold text-white">What I Do</h3>
+              <div className="hidden md:flex items-center gap-2 text-xs text-gray-400">
+                <span className="w-2 h-2 rounded-full bg-orange-400"></span>
+                <span>Auto-rotating highlights</span>
+              </div>
+            </div>
+            <div className="flex gap-6 items-stretch">
               {/* Carousel */}
-              <div className="relative h-80 overflow-hidden rounded-2xl flex-1">
+              <div className="relative h-96 overflow-hidden rounded-3xl flex-1 bg-gradient-to-br from-gray-800/40 via-gray-900/40 to-black/40 border border-gray-700/40 shadow-2xl">
                 {services.map((service, index) => {
                   const ServiceIcon = service.icon;
                   return (
                     <div
                       key={service.title}
-                      className={`absolute inset-0 p-6 bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700/30 rounded-2xl transition-all duration-500 transform flex flex-col items-center justify-center text-center ${
+                      className={`absolute inset-0 p-8 transition-all duration-500 transform flex flex-col justify-between ${
                         index === activeService
                           ? "translate-y-0 opacity-100"
                           : index < activeService
@@ -339,22 +344,24 @@ export default function AboutSection() {
                             : "translate-y-full opacity-0"
                       }`}
                     >
-                      <div className="flex flex-col items-center space-y-2 mb-4">
-                        <span className="text-4xl text-orange-400">
+                      <div className="flex items-start gap-4">
+                        <span className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500/20 to-red-500/10 text-orange-400 text-2xl border border-orange-400/20">
                           <ServiceIcon />
                         </span>
-                        <h4 className="text-xl font-bold text-white">
-                          {service.title}
-                        </h4>
+                        <div>
+                          <h4 className="text-2xl font-bold text-white mb-2">
+                            {service.title}
+                          </h4>
+                          <p className="text-gray-300 leading-relaxed">
+                            {service.description}
+                          </p>
+                        </div>
                       </div>
-                      <p className="text-gray-400 mb-4 leading-relaxed">
-                        {service.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2 justify-center">
+                      <div className="flex flex-wrap gap-2">
                         {service.technologies.map((tech) => (
                           <span
                             key={tech}
-                            className="px-3 py-1 bg-orange-500/10 text-orange-400 text-sm rounded-lg border border-orange-500/20"
+                            className="px-3 py-1 bg-white/5 text-gray-300 text-xs rounded-lg border border-gray-700/40"
                           >
                             {tech}
                           </span>
@@ -366,17 +373,26 @@ export default function AboutSection() {
               </div>
 
               {/* Service Indicators - Right Side */}
-              <div className="flex flex-col justify-center items-center gap-3">
-                {services.map((_, index) => (
+              <div className="flex flex-col justify-center items-center gap-4">
+                {services.map((service, index) => (
                   <button
-                    key={index}
+                    key={service.title}
                     onClick={() => setActiveService(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      index === activeService
-                        ? "bg-orange-400 h-6"
-                        : "bg-gray-600 hover:bg-gray-500"
+                    className={`group flex items-center gap-3 transition-all duration-300 ${
+                      index === activeService ? "text-white" : "text-gray-500"
                     }`}
-                  />
+                  >
+                    <span
+                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                        index === activeService
+                          ? "bg-orange-400 scale-125"
+                          : "bg-gray-600 group-hover:bg-gray-500"
+                      }`}
+                    />
+                    <span className="hidden lg:block text-xs uppercase tracking-widest">
+                      {service.title.split(" ")[0]}
+                    </span>
+                  </button>
                 ))}
               </div>
             </div>
@@ -386,27 +402,39 @@ export default function AboutSection() {
           <div
             className={`transform transition-all duration-1000 delay-400 ${isVisible ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"}`}
           >
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-5">
               {stats.map((stat, index) => {
                 const StatIcon = stat.icon;
                 return (
                   <div
                     key={stat.label}
-                    className={`group p-6 rounded-2xl border transition-all duration-300 text-center cursor-pointer transform hover:scale-105 ${
+                    className={`group p-6 rounded-2xl border transition-all duration-300 cursor-pointer ${
                       stat.highlight
                         ? "bg-gradient-to-br from-orange-500/20 to-red-500/20 border-orange-400/50 hover:border-orange-400"
-                        : "bg-gradient-to-br from-gray-800/30 to-gray-900/30 border-gray-700/30 hover:border-orange-400/30"
+                        : "bg-gradient-to-br from-gray-800/40 to-gray-900/40 border-gray-700/40 hover:border-orange-400/30"
                     }`}
                   >
-                    <div className="text-2xl mb-2 text-orange-400">
-                      <StatIcon />
-                    </div>
-                    <div className="text-3xl font-bold text-white mb-1">
-                      {animatedStats[index]}
-                      {stat.number.replace(/\d+/g, "")}
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="text-3xl font-bold text-white">
+                        {animatedStats[index]}
+                        {stat.number.replace(/\d+/g, "")}
+                      </div>
+                      <div className="w-10 h-10 rounded-xl bg-white/5 border border-gray-700/40 flex items-center justify-center text-orange-400 text-xl">
+                        <StatIcon />
+                      </div>
                     </div>
                     <div className="text-sm text-gray-300 font-medium">
                       {stat.label}
+                    </div>
+                    <div className="mt-3 h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                      <div
+                        className={`h-full rounded-full ${
+                          stat.highlight
+                            ? "bg-gradient-to-r from-orange-400 to-red-400"
+                            : "bg-gradient-to-r from-gray-500 to-gray-600"
+                        }`}
+                        style={{ width: "70%" }}
+                      />
                     </div>
                   </div>
                 );

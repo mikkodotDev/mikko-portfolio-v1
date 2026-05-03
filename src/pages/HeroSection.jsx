@@ -39,14 +39,13 @@ export default function HeroSection({ theme = "evening", colors = {} }) {
   return (
     <section
       id="home"
-      className={`relative md:sticky top-0 min-h-screen flex items-center px-4 md:px-8 overflow-hidden transition-colors duration-1000 ${
+      className={`relative min-h-screen flex items-center px-4 md:px-8 overflow-hidden transition-colors duration-1000 ${
         theme === "morning"
           ? "bg-slate-50"
           : theme === "noon"
             ? "bg-sky-50"
             : "bg-gradient-to-br from-[#0f1419] via-[#181c23] to-[#232733]"
       }`}
-      style={{ zIndex: 30 }}
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -183,29 +182,40 @@ export default function HeroSection({ theme = "evening", colors = {} }) {
                 </div>
 
                 {/* Code Content */}
-                <div className="p-6 font-mono text-sm space-y-2">
+                <div className="p-6 font-mono text-sm space-y-1">
                   <div className="text-gray-500">
-                    // Building amazing experiences
+                    // Full-stack developer & UI enthusiast
                   </div>
                   <div className="text-blue-400">
-                    const <span className="text-white">developer</span> = {"{"}
+                    const <span className="text-white">mikko</span> = {"{"}
                   </div>
                   <div className="ml-4 text-white">
-                    name: <span className="text-green-400">'Mikko'</span>,
+                    <span className="text-yellow-400">experience</span>:{" "}
+                    <span className="text-green-400">'2+ years'</span>,
                   </div>
                   <div className="ml-4 text-white">
-                    skills: [<span className="text-green-400">'React'</span>,{" "}
-                    <span className="text-green-400">'Flutter'</span>],
+                    <span className="text-yellow-400">frontend</span>: [
+                    <span className="text-green-400">'React'</span>,{" "}
+                    <span className="text-green-400">'Tailwind'</span>],
                   </div>
                   <div className="ml-4 text-white">
-                    passion:{" "}
-                    <span className="text-green-400">
-                      'Creating Digital Magic'
-                    </span>
+                    <span className="text-yellow-400">mobile</span>: [
+                    <span className="text-green-400">'Flutter'</span>,{" "}
+                    <span className="text-green-400">'React Native'</span>],
                   </div>
-                  <div className="text-blue-400">{"};"}</div>
-                  <div className="text-gray-500 animate-pulse">
-                    ▶ Ready to collaborate...
+                  <div className="ml-4 text-white">
+                    <span className="text-yellow-400">backend</span>: [
+                    <span className="text-green-400">'Node.js'</span>,{" "}
+                    <span className="text-green-400">'Firebase'</span>,{" "}
+                    <span className="text-green-400">'Laravel'</span>],
+                  </div>
+                  <div className="ml-4 text-white">
+                    <span className="text-yellow-400">available</span>:{" "}
+                    <span className="text-blue-500">true</span>,
+                  </div>
+                  <div className="text-blue-400">{"}"}</div>
+                  <div className="text-gray-500 animate-pulse pt-1">
+                    ▶ Let's build something amazing
                   </div>
                 </div>
               </div>

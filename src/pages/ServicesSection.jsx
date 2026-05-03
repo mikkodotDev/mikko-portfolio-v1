@@ -80,8 +80,7 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="px-4 py-16 md:py-20 md:sticky md:top-0 bg-[#181c23] overflow-hidden"
-      style={{ zIndex: 60 }}
+      className="px-4 py-16 md:py-20 bg-[#181c23] overflow-hidden"
     >
       <div className="max-w-6xl mx-auto">
         {/* Header */}
