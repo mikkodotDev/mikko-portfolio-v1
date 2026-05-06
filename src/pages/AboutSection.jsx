@@ -1,16 +1,6 @@
 // About section for portfolio homepage
 import { useState, useEffect } from "react";
-import {
-  FaGlobe,
-  FaMobileAlt,
-  FaPalette,
-  FaRocket,
-  FaCode,
-  FaLightbulb,
-  FaSmile,
-  FaBriefcase,
-  FaCheck,
-} from "react-icons/fa";
+import { FaGlobe, FaMobileAlt, FaPalette, FaBriefcase } from "react-icons/fa";
 import {
   SiReact,
   SiFlutter,
@@ -22,64 +12,11 @@ import {
 
 export default function AboutSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeService, setActiveService] = useState(0);
-  const [activeWorkCategory, setActiveWorkCategory] = useState("All");
   const [tiltStyle, setTiltStyle] = useState({ rotateX: 0, rotateY: 0 });
   const [borderTiltStyle, setBorderTiltStyle] = useState({
     rotateX: 0,
     rotateY: 0,
   });
-  const [animatedStats, setAnimatedStats] = useState([0, 0, 0, 0]);
-
-  const workCategories = [
-    "All",
-    "Web Apps",
-    "Mobile Apps",
-    "UI/UX Designs",
-    "WordPress",
-  ];
-
-  const services = [
-    {
-      title: "Full-Stack Web Development",
-      description:
-        "Building modern, responsive web applications with React, Node.js, and Firebase. I focus on clean code, scalability, and user-centric design.",
-      icon: FaGlobe,
-      technologies: [
-        "React",
-        "Node.js",
-        "Tailwind CSS",
-        "Firebase",
-        "Wordpress",
-      ],
-    },
-    {
-      title: "Mobile App Development",
-      description:
-        "Creating cross-platform mobile experiences with Flutter and React Native. I prioritize performance, intuitive UX, and smooth animations.",
-      icon: FaMobileAlt,
-      technologies: ["Flutter", "React Native", "Firebase", "API Integration"],
-    },
-    {
-      title: "UI/UX & Web Design",
-      description:
-        "Designing beautiful, functional interfaces using modern design principles. I create prototypes and high-fidelity mockups that developers love to build.",
-      icon: FaPalette,
-      technologies: ["Figma", "Photoshop", "Prototyping", "Design Systems"],
-    },
-  ];
-
-  const stats = [
-    {
-      number: "4+",
-      label: "Projects Delivered",
-      icon: FaRocket,
-      highlight: true,
-    },
-    { number: "2+", label: "Years Learning & Building", icon: FaCode },
-    { number: "100%", label: "Commitment to Quality", icon: FaCheck },
-    { number: "5+", label: "Tech Stack Mastered", icon: FaLightbulb },
-  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -98,40 +35,6 @@ export default function AboutSection() {
 
     return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveService((prev) => (prev + 1) % services.length);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    const animationDuration = 2000; // 2 seconds
-    const frameRate = 60;
-    const totalFrames = (animationDuration / 1000) * frameRate;
-    let currentFrame = 0;
-
-    const interval = setInterval(() => {
-      currentFrame++;
-      const progress = Math.min(currentFrame / totalFrames, 1);
-      const easeOutQuad = 1 - Math.pow(1 - progress, 2);
-
-      setAnimatedStats([
-        Math.floor(4 * easeOutQuad),
-        Math.floor(2 * easeOutQuad),
-        Math.floor(100 * easeOutQuad),
-        Math.floor(5 * easeOutQuad),
-      ]);
-
-      if (progress === 1) clearInterval(interval);
-    }, 1000 / frameRate);
-
-    return () => clearInterval(interval);
-  }, [isVisible]);
 
   const handleImageHover = (e) => {
     const element = e.currentTarget;
@@ -176,7 +79,7 @@ export default function AboutSection() {
           <div className="w-24 h-1 bg-gradient-to-r from-orange-400 to-red-400 mx-auto rounded-full"></div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16 lg:mb-20">
           {/* Left Side - Profile Image */}
           <div
             className={`flex justify-center transform transition-all duration-1000 delay-200 ${isVisible ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"}`}
@@ -316,135 +219,8 @@ export default function AboutSection() {
               </div>
             </div>
           </div>
-
-          {/* Services Carousel */}
-          <div
-            className={`transform transition-all duration-1000 delay-300 ${isVisible ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"}`}
-          >
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold text-white">What I Do</h3>
-              <div className="hidden md:flex items-center gap-2 text-xs text-gray-400">
-                <span className="w-2 h-2 rounded-full bg-orange-400"></span>
-                <span>Auto-rotating highlights</span>
-              </div>
-            </div>
-            <div className="flex gap-6 items-stretch">
-              {/* Carousel */}
-              <div className="relative h-96 overflow-hidden rounded-3xl flex-1 bg-gradient-to-br from-gray-800/40 via-gray-900/40 to-black/40 border border-gray-700/40 shadow-2xl">
-                {services.map((service, index) => {
-                  const ServiceIcon = service.icon;
-                  return (
-                    <div
-                      key={service.title}
-                      className={`absolute inset-0 p-8 transition-all duration-500 transform flex flex-col justify-between ${
-                        index === activeService
-                          ? "translate-y-0 opacity-100"
-                          : index < activeService
-                            ? "-translate-y-full opacity-0"
-                            : "translate-y-full opacity-0"
-                      }`}
-                    >
-                      <div className="flex items-start gap-4">
-                        <span className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500/20 to-red-500/10 text-orange-400 text-2xl border border-orange-400/20">
-                          <ServiceIcon />
-                        </span>
-                        <div>
-                          <h4 className="text-2xl font-bold text-white mb-2">
-                            {service.title}
-                          </h4>
-                          <p className="text-gray-300 leading-relaxed">
-                            {service.description}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {service.technologies.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-3 py-1 bg-white/5 text-gray-300 text-xs rounded-lg border border-gray-700/40"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Service Indicators - Right Side */}
-              <div className="flex flex-col justify-center items-center gap-4">
-                {services.map((service, index) => (
-                  <button
-                    key={service.title}
-                    onClick={() => setActiveService(index)}
-                    className={`group flex items-center gap-3 transition-all duration-300 ${
-                      index === activeService ? "text-white" : "text-gray-500"
-                    }`}
-                  >
-                    <span
-                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                        index === activeService
-                          ? "bg-orange-400 scale-125"
-                          : "bg-gray-600 group-hover:bg-gray-500"
-                      }`}
-                    />
-                    <span className="hidden lg:block text-xs uppercase tracking-widest">
-                      {service.title.split(" ")[0]}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Stats Grid */}
-          <div
-            className={`transform transition-all duration-1000 delay-400 ${isVisible ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"}`}
-          >
-            <div className="grid sm:grid-cols-2 gap-5">
-              {stats.map((stat, index) => {
-                const StatIcon = stat.icon;
-                return (
-                  <div
-                    key={stat.label}
-                    className={`group p-6 rounded-2xl border transition-all duration-300 cursor-pointer ${
-                      stat.highlight
-                        ? "bg-gradient-to-br from-orange-500/20 to-red-500/20 border-orange-400/50 hover:border-orange-400"
-                        : "bg-gradient-to-br from-gray-800/40 to-gray-900/40 border-gray-700/40 hover:border-orange-400/30"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="text-3xl font-bold text-white">
-                        {animatedStats[index]}
-                        {stat.number.replace(/\d+/g, "")}
-                      </div>
-                      <div className="w-10 h-10 rounded-xl bg-white/5 border border-gray-700/40 flex items-center justify-center text-orange-400 text-xl">
-                        <StatIcon />
-                      </div>
-                    </div>
-                    <div className="text-sm text-gray-300 font-medium">
-                      {stat.label}
-                    </div>
-                    <div className="mt-3 h-1 w-full bg-white/5 rounded-full overflow-hidden">
-                      <div
-                        className={`h-full rounded-full ${
-                          stat.highlight
-                            ? "bg-gradient-to-r from-orange-400 to-red-400"
-                            : "bg-gradient-to-r from-gray-500 to-gray-600"
-                        }`}
-                        style={{ width: "70%" }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
         </div>
       </div>
     </section>
   );
 }
-
-// Found an issue where I cannot see the bottom part of about me section -- Fixing
