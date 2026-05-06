@@ -41,7 +41,7 @@ export default function ProjectsSection() {
           setIsSectionVisible(true);
         }
       },
-      { threshold: 0.2 },
+      { threshold: 0.01 },
     );
 
     const sectionElement = sectionRef.current;
